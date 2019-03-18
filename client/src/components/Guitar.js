@@ -28,18 +28,13 @@ class Guitar extends React.Component {
         })
     }
 
-    //formats array
+    //gets array of scale degrees
     modeizer(mode, modeName){
-        console.log(modeName)
+        console.log(modeName + " selected!")
         console.log(modeizerFxn)
         let newMode = modeizerFxn(modeName)
         console.log(newMode);
-        // this.setState({selectScale: modeName})
-
-        // axios.get(mode).then((response) => {
-        //     console.log(response.data)
-        //     this.setState({selectScale: modeName})
-        // }).catch((error) => {throw error})
+        this.setState({selectScale: modeName})
     }
 
     render(){
