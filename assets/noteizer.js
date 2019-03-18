@@ -12,5 +12,41 @@ const Gb = ["Gb", "G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "Eb", "E
 const G = ["G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "Eb", "E", "F", "Gb"];
 
 module.exports = (key) => {
-    console.log(key);
+    if (key === "Ab"){
+        console.log(Ab);
+        return(Ab)
+    } else if (key === "A"){
+        console.log(A);
+        return(A)
+    } else if (key === "Bb"){
+        console.log(Bb);
+        return(Bb)
+    } else if (key === "B"){
+        console.log(B);
+        return(B)
+    } else if (key === "C"){
+        console.log(C);
+        return(C)
+    } else if (key === "Db"){
+        console.log(Db);
+        return(Db)
+    } else if (key === "D"){
+        console.log(D);
+        return(D)
+    } else if (key === "Eb"){
+        console.log(Eb);
+        return(Eb)
+    } else if (key === "E"){
+        console.log(E);
+        return(E)
+    } else if (key === "F"){
+        console.log(F);
+        return(F)
+    } else if (key === "Gb"){
+        console.log(Gb);
+        return(Gb)
+    } else if (key === "G"){
+        console.log(G);
+        return(G)
+    }
 }

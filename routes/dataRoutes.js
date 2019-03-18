@@ -1,11 +1,14 @@
-import noteizer from "../assets/noteizer";
+const noteizer = require("../assets/noteizer");
+const modeizer = require("../assets/modeizer");
 
 module.exports = (app, db) => {
-    app.get("/notizer/:key", (req, res) => {
-        const key = req.params.id;
+    app.get("/noteizer/:key", (req, res) => {
+        const key = req.params.key;
         res.send(noteizer(key));
     })
-    app.get("/guitarStuff", (req, res) => {
-        res.send('hey')
+    
+    app.get("/modeizer/:mode", (req, res) => {
+        const mode = req.params.mode;
+        res.send(modeizer(mode));
     })
 }
