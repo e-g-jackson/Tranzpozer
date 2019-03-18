@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(logger("dev"));
 
-mongoose.connect(MONGODB_URI);
+// mongoose.connect(MONGODB_URI);
 
 const db = require(path.join(__dirname, "./models/"));
 
