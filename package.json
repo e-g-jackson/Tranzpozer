@@ -1,0 +1,20 @@
+{
+  "name": "tranzpozer",
+  "version": "1.0.0",
+  "description": "Music app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-g-jackson/Tranzpozer.git"
+  },
+  "author": "Erik G Jackson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/e-g-jackson/Tranzpozer/issues"
+  },
+  "homepage": "https://github.com/e-g-jackson/Tranzpozer#readme"
+}
