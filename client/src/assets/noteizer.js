@@ -11,7 +11,7 @@ const F = ["F", "Gb", "G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E"];
 const Gb = ["Gb", "G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F"];
 const G = ["G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb"];
 
-module.exports = (key) => {
+export default function noteizerFxn (key){
     if (key === "Ab"){
         console.log(Ab);
         return(Ab)

@@ -1,31 +1,45 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
+import noteizerFxn from "../assets/noteizer";
+import modeizerFxn from "../assets/modeizer";
 
 class Guitar extends React.Component {
     state = {
-        data: "no data yet..."
+        data: "no data yet...",
+        mode: "",
+        selectKey: "Select a Key",
+        selectScale: "Select a Scale"
     }
 
     //gets array of notes
-    noteizer(key){
-        axios.get(key).then((result) => {
-            console.log(result.data)
-            let newKey = result.data.map((x) => {
-                return(
-                    <div key = {Math.floor(Math.random() * 99999999999999999)}>
-                        <h3 className = "p-2" style = {{backgroundColor:"#333333"}}>{x}</h3>
-                    </div>
-                )
-            })
-            this.setState({data: newKey})
-        }).catch((err) => {throw err})
+    noteizer(key, keyName){
+        let notes = noteizerFxn(keyName);
+        console.log(notes)
+        let newKey = notes.map((x, index) => {
+            return(
+                <div key = {index}>
+                    <h3 className = "p-2" style = {{backgroundColor:"#333333"}}>{x}</h3>
+                </div>
+            )
+        })
+        this.setState({
+            data: newKey,
+            selectKey: keyName
+        })
     }
 
     //formats array
-    modeizer(mode){
-        axios.get(mode).then((response) => {
-            console.log(response.data)
-        }).catch((error) => {throw error})
+    modeizer(mode, modeName){
+        console.log(modeName)
+        console.log(modeizerFxn)
+        let newMode = modeizerFxn(modeName)
+        console.log(newMode);
+        // this.setState({selectScale: modeName})
+
+        // axios.get(mode).then((response) => {
+        //     console.log(response.data)
+        //     this.setState({selectScale: modeName})
+        // }).catch((error) => {throw error})
     }
 
     render(){
@@ -35,30 +49,30 @@ class Guitar extends React.Component {
                 <div className = "row" style = {{backgroundColor: "#000000", text: "#ffffff" }}>
                     <div className="dropdown m-3">
                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select a Key
+                            {this.state.selectKey}
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Ab")}}>Ab</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/A")}}>A</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Bb")}}>Bb</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/B")}}>B</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/C")}}>C</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Db")}}>Db</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/D")}}>D</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Eb")}}>Eb</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/E")}}>E</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/F")}}>F</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Gb")}}>Gb</div>
-                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/G")}}>G</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Ab", "Ab")}}>Ab</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/A", "A")}}>A</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Bb", "Bb")}}>Bb</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/B", "B")}}>B</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/C", "C")}}>C</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Db", "Db")}}>Db</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/D", "D")}}>D</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Eb", "Eb")}}>Eb</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/E", "E")}}>E</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/F", "F")}}>F</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/Gb", "Gb")}}>Gb</div>
+                            <div className="dropdown-item" onClick={() => {this.noteizer("/noteizer/G", "G")}}>G</div>
                         </div>
                     </div>
                     <div className="dropdown m-3">
                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select a Scale
+                            {this.state.selectScale}
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div className="dropdown-item" onClick={() => {this.modeizer("/modeizer/major")}}>Major</div>
-                            <div className="dropdown-item" onClick={() => {this.modeizer("/modeizer/minor")}}>Minor</div>
+                            <div className="dropdown-item" onClick={() => {this.modeizer("/modeizer/major", "Major")}}>Major</div>
+                            <div className="dropdown-item" onClick={() => {this.modeizer("/modeizer/minor", "Minor")}}>Minor</div>
                         </div>
                     </div>
                 </div>
