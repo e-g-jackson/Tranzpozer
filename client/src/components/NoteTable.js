@@ -3,6 +3,7 @@ import compromizer from "../assets/compromizer";
 
 class NoteTable extends React.Component{
     state = {notesInKey: ""}
+    
     componentDidUpdate(){
         if(this.props.notes !== "" && this.props.modeData !== "no data yet..."){
             const comp = compromizer(this.props.notes, this.props.modeData);
@@ -11,11 +12,27 @@ class NoteTable extends React.Component{
     }
 
     difference(data){
-        if(this.state.notesInKey[0] === data[0] && this.state.notesInKey[1] === data[1] && this.state.notesInKey[2] === data[2]){
+        if(this.sameFinder(data) === false){
             console.log('state already up to date.')
         } else {
             this.setState({notesInKey: data})
         }
+    }
+    
+    sameFinder(newData){
+        let value = false;
+        if(this.state.notesInKey.length !== newData.length){
+            value = true
+        } else if (this.state.notesInKey.length === newData.length){
+            for (var i = 0; i < this.state.notesInKey.length; i++){
+                if (this.state.notesInKey[i] !== newData[i]){
+                    value = true;
+                    break;
+                }
+            }
+        }
+        console.log('value = ' + value)
+        return (value)
     }
 
     formatter(data){
