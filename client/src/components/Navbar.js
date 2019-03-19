@@ -8,7 +8,7 @@ class Navbar extends React.Component{
                     <button className = "btn btn-sm btn-warning mr-3">Home</button>
                 </a>
                 <a href = "/guitar">
-                    <button className = "btn btn-sm btn-success mr-3">Guitar</button>
+                    <button className = "btn btn-sm btn-success mr-3">Noteizer</button>
                 </a>
             </div>
         )
