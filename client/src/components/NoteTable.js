@@ -1,10 +1,14 @@
 import React from "react";
 import compromizer from "../assets/compromizer";
+import Guitar from "../components/Guitar";
+
+import { notes } from "../assets/noteizer";
 
 class NoteTable extends React.Component{
     state = {notesInKey: ""}
     
     componentDidUpdate(){
+        console.log(notes)
         if(this.props.notes !== "" && this.props.modeData !== "no data yet..."){
             const comp = compromizer(this.props.notes, this.props.modeData);
             this.difference(comp)
@@ -78,7 +82,7 @@ class NoteTable extends React.Component{
                 <div className = "container">
                     <div className = "row mt-4">
                         <div className = "col-2"></div>
-                        <div className = "col-8">
+                        <div className = "col-4">
                             <table id = "body" className = "p-2 table table-dark">
                                 <thead>
                                     <tr>
@@ -89,6 +93,12 @@ class NoteTable extends React.Component{
                                     {this.formatter(this.state.notesInKey)}
                                 </tbody>
                             </table>
+                        </div>
+                        <div className = "col-4">
+                            <h3>Guitar Renderizer:</h3>
+                            <Guitar 
+                                noteData = {this.state.notesInKey}
+                            />
                         </div>
                         <div className = "col-2"></div>
                     </div>
