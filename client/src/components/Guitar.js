@@ -57,7 +57,7 @@ class Guitar extends Component {
         // if (this.state.formattedData === "Nothing Yet"){
             return(
                 <table>
-                    <thead>
+                    <thead style = {{backgroundColor: "#222222", color: "#ffffff"}}>
                         <tr>
                             <th scope = "col">E</th>
                             <th scope = "col">A</th>
