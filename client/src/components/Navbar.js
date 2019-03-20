@@ -6,10 +6,10 @@ class Navbar extends React.Component{
         return(
             <div className = "navbar navbar-expand-lg navbar-dark bg-dark">
                 <Link to = "/">
-                    <button className = "btn btn-sm btn-warning mr-3">Home</button>
+                    <button className = "btn btn-sm btn-outline-danger mr-3">Home</button>
                 </Link>
                 <Link to = "/guitar">
-                    <button className = "btn btn-sm btn-success mr-3">Noteizer</button>
+                    <button className = "btn btn-sm btn-outline-danger mr-3">Noteizer</button>
                 </Link>
             </div>
         )
