@@ -58,7 +58,7 @@ class Guitar extends Component {
             return(
                 <table>
                     <thead style = {{backgroundColor: "#222222", color: "#ffffff"}}>
-                        <tr>
+                        <tr className = "text-center">
                             <th scope = "col">E</th>
                             <th scope = "col">A</th>
                             <th scope = "col">D</th>
