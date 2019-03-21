@@ -2,13 +2,11 @@ import React from "react";
 import compromizer from "../assets/compromizer";
 import Guitar from "../components/Guitar";
 
-import { notes } from "../assets/noteizer";
 
 class NoteTable extends React.Component{
     state = {notesInKey: ""}
     
     componentDidUpdate(){
-        console.log(notes)
         if(this.props.notes !== "" && this.props.modeData !== "no data yet..."){
             const comp = compromizer(this.props.notes, this.props.modeData);
             this.difference(comp)
@@ -35,7 +33,7 @@ class NoteTable extends React.Component{
                 }
             }
         }
-        console.log('value = ' + value)
+        // console.log('value = ' + value)
         return (value)
     }
 
@@ -53,7 +51,7 @@ class NoteTable extends React.Component{
     }
 
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         if(this.state.notesInKey === ""){
             return(
                 <div className = "container">
