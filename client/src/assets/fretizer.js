@@ -2,6 +2,7 @@ import { notes } from "./noteizer";
 // let key = "C";
 // let scale = "Ionian"
 //will accept key, scale arguments
+
 function compare(sf, nd){
     let answer = false;
     for(var i = 0; i < nd.length; i++){
@@ -15,7 +16,7 @@ function compare(sf, nd){
 export default function fretizer (noteData){
     let strings = ["E","A","D","G","B","E"];
     let stringsArray = [notes.E, notes.A, notes.D, notes.G, notes.B, notes.E];
-    let template = []
+    let template = [];
 
     //f = number of frets
     for(var f = 0; f < 12; f++){

@@ -24,47 +24,42 @@ class Guitar extends Component {
         // console.log('fretizer:')
         // console.log(fretizer(this.props.noteData));
 
+        let newNoteData = fretizer(this.props.noteData);
+        let tableData = newNoteData.map((x, index) => {
+            return(
+                <tr key = {index}>
+                    <td>
+                        {this.picChooser(x[0].inKey)}
+                    </td>
+                    <td>
+                        {this.picChooser(x[1].inKey)}
+                    </td>
+                    <td>
+                        {this.picChooser(x[2].inKey)}
+                    </td>
+                    <td>
+                        {this.picChooser(x[3].inKey)}
+                    </td>
+                    <td>
+                        {this.picChooser(x[4].inKey)}
+                    </td>
+                    <td>
+                        {this.picChooser(x[5].inKey)}
+                    </td>
+                </tr>
+            )
+        })
         if(this.state.noteData === ""){
             this.setState({noteData: this.props.noteData})
         }
-        if (this.state.formattedData === "Nothing yet" || this.state.formattedData !== fretizer(this.props.noteData)){
-            let newNoteData = fretizer(this.props.noteData);
-            console.log(newNoteData)
-            let tableData = newNoteData.map((x, index) => {
-                console.log(x[0]);
-                console.log(x[1]);
-                console.log(x[2]);
-                console.log(x[3]);
-                console.log(x[4]);
-                console.log(x[5]);
-                return(
-                    <tr key = {index}>
-                        <td>
-                            {this.picChooser(x[0].inKey)}
-                        </td>
-                        <td>
-                            {this.picChooser(x[1].inKey)}
-                        </td>
-                        <td>
-                            {this.picChooser(x[2].inKey)}
-                        </td>
-                        <td>
-                            {this.picChooser(x[3].inKey)}
-                        </td>
-                        <td>
-                            {this.picChooser(x[4].inKey)}
-                        </td>
-                        <td>
-                            {this.picChooser(x[5].inKey)}
-                        </td>
-                    </tr>
-                )
-            })
-            console.log('newNoteData:');
-            console.log(newNoteData);
-            console.log('tableData')
-            console.log(tableData)
-            if(this.sameFinder(newNoteData)){
+        if (this.state.formattedData === "Nothing yet" || this.state.formattedData !== tableData){
+            
+            // console.log('newNoteData:');
+            // console.log(newNoteData);
+            // console.log('tableData')
+            // console.log(tableData)
+
+            if(this.sameFinder(tableData)){
                 console.log('they are the same!')
                 this.setState({formattedData: tableData})
             }
@@ -73,19 +68,28 @@ class Guitar extends Component {
 
     picChooser(inKey){
         if(inKey === true){
-            return(<img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} />)
+            return(<img alt = "guitar fret" inkey = "true" src = {require("../assets/images/Guitar_note.png")} />)
         } else {
-            return(<img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} />)
+            return(<img alt = "guitar fret" inkey = "false" src = {require("../assets/images/Guitar_empty.png")} />)
         }
     }
 
     sameFinder(newData){
+        console.log('formatted Data:')
+        console.log(this.state.formattedData)
+        console.log('new Data: ')
+        console.log(newData)
         let value = false;
         if(this.state.formattedData.length !== newData.length){
             value = true
-        } else if (this.state.notesInKey.length === newData.length){
-            for (var i = 0; i < this.state.notesInKey.length; i++){
-                if (this.state.notesInKey[i] !== newData[i]){
+        } else if (this.state.formattedData.length === newData.length){
+            for (var i = 0; i < this.state.formattedData.length; i++){
+                var oldStuff = this.state.formattedData[i].props.children[0].props.children.props.inkey;
+                var newStuff = newData[i].props.children[0].props.children.props.inkey;
+                console.log(oldStuff)
+                console.log('VS')
+                console.log(newStuff)
+                if (oldStuff !== newStuff){
                     value = true;
                     break;
                 }
