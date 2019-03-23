@@ -19,6 +19,13 @@ class Guitar extends Component {
         }
     }
 
+    sounds(e){
+        var playNote = e.target.getAttribute("note");
+        console.log(playNote);
+        // var audio = new Audio('audio_file.mp3');
+        // audio.play();
+    }
+
     renderer(){
         //pass key, scale, tuning...
         // console.log('fretizer:')
@@ -32,7 +39,7 @@ class Guitar extends Component {
                 top: "-60px",
                 left: "70px",
                 color: "#ffffff", 
-                fontSize: "15px",
+                fontSize: "12px",
                 height: "0px",
                 transform: "translate(-50%, -50%)",
                 zIndex:"5"
@@ -42,37 +49,67 @@ class Guitar extends Component {
                     <td>
                         <div className = "">
                             {this.picChooser(x[0].inKey)}
-                            <div style = {centeredText}>{x[0].note}</div>
+                            <div 
+                                style = {centeredText} 
+                                note = {x[0].note} 
+                                onMouseOver = {(event) => {this.sounds(event)}}
+                                >{x[0].note}
+                            </div>
                         </div>
                     </td>
                     <td>
                         <div className = "">
                             {this.picChooser(x[1].inKey)}
-                            <div style = {centeredText}>{x[1].note}</div>
+                            <div 
+                                style = {centeredText} 
+                                note = {x[1].note} 
+                                onMouseOver = {(event) => {this.sounds(event)}}
+                                >{x[1].note}
+                            </div>
                         </div>
                     </td>
                     <td>
                         <div className = "">
                             {this.picChooser(x[2].inKey)}
-                            <div style = {centeredText}>{x[2].note}</div>
+                            <div 
+                                style = {centeredText} 
+                                note = {x[2].note} 
+                                onMouseOver = {(event) => {this.sounds(event)}}
+                                >{x[2].note}
+                            </div>
                         </div>
                     </td>
                     <td>
                         <div className = "">
                             {this.picChooser(x[3].inKey)}
-                            <div style = {centeredText}>{x[3].note}</div>
+                            <div 
+                                style = {centeredText} 
+                                note = {x[3].note} 
+                                onMouseOver = {(event) => {this.sounds(event)}}
+                                >{x[3].note}
+                            </div>
                         </div>
                     </td>
                     <td>
                         <div className = "">
                             {this.picChooser(x[4].inKey)}
-                            <div style = {centeredText}>{x[4].note}</div>
+                            <div 
+                                style = {centeredText} 
+                                note = {x[4].note} 
+                                onMouseOver = {(event) => {this.sounds(event)}}
+                                >{x[4].note}
+                            </div>
                         </div>
                     </td>
                     <td>
                         <div className = "">
                             {this.picChooser(x[5].inKey)}
-                            <div style = {centeredText}>{x[5].note}</div>
+                            <div 
+                                style = {centeredText} 
+                                note = {x[5].note} 
+                                onMouseOver = {(event) => {this.sounds(event)}}
+                                >{x[5].note}
+                            </div>
                         </div>
                     </td>
                 </tr>
