@@ -26,29 +26,59 @@ class Guitar extends Component {
 
         let newNoteData = fretizer(this.props.noteData);
         let tableData = newNoteData.map((x, index) => {
+            const centeredText = {
+                position: "relative",
+                display: "flex",
+                top: "-50px",
+                left: "70px",
+                color: "#ffffff", 
+                fontSize: "15px",
+                // backgroundColor: "#333333",
+                transform: "translate(-50%, -50%)",
+                zIndex:"5"
+            };
             return(
                 <tr key = {index}>
                     <td>
-                        {this.picChooser(x[0].inKey)}
+                        <div className = "">
+                            {this.picChooser(x[0].inKey)}
+                            <div style = {centeredText}>{x[0].note}</div>
+                        </div>
                     </td>
                     <td>
-                        {this.picChooser(x[1].inKey)}
+                        <div className = "">
+                            {this.picChooser(x[1].inKey)}
+                            <div style = {centeredText}>{x[1].note}</div>
+                        </div>
                     </td>
                     <td>
-                        {this.picChooser(x[2].inKey)}
+                        <div className = "">
+                            {this.picChooser(x[2].inKey)}
+                            <div style = {centeredText}>{x[2].note}</div>
+                        </div>
                     </td>
                     <td>
-                        {this.picChooser(x[3].inKey)}
+                        <div className = "">
+                            {this.picChooser(x[3].inKey)}
+                            <div style = {centeredText}>{x[3].note}</div>
+                        </div>
                     </td>
                     <td>
-                        {this.picChooser(x[4].inKey)}
+                        <div className = "">
+                            {this.picChooser(x[4].inKey)}
+                            <div style = {centeredText}>{x[4].note}</div>
+                        </div>
                     </td>
                     <td>
-                        {this.picChooser(x[5].inKey)}
+                        <div className = "">
+                            {this.picChooser(x[5].inKey)}
+                            <div style = {centeredText}>{x[5].note}</div>
+                        </div>
                     </td>
                 </tr>
             )
         })
+
         if(this.state.noteData === ""){
             this.setState({noteData: this.props.noteData})
         }
@@ -75,95 +105,27 @@ class Guitar extends Component {
     }
 
     sameFinder(newData){
-        console.log('formatted Data:')
-        console.log(this.state.formattedData)
-        console.log('new Data: ')
-        console.log(newData)
         let value = false;
         if(this.state.formattedData.length !== newData.length){
             value = true
         } else if (this.state.formattedData.length === newData.length){
             for (var i = 0; i < this.state.formattedData.length; i++){
-                var oldStuff = this.state.formattedData[i].props.children[0].props.children.props.inkey;
-                var newStuff = newData[i].props.children[0].props.children.props.inkey;
-                console.log(oldStuff)
-                console.log('VS')
-                console.log(newStuff)
+                var oldStuff = this.state.formattedData[i].props.children[0].props.children.props.children[0].props.inkey;
+                var newStuff = newData[i].props.children[0].props.children.props.children[0].props.inkey;        
+                // console.log(this.state.formattedData[i].props.children[0].props.children.props.children[0].props.inkey)
+                // console.log(newData[i].props.children[0].props.children.props.children[0].props.inkey)
                 if (oldStuff !== newStuff){
                     value = true;
                     break;
                 }
             }
         }
-        console.log('value = ' + value)
         return (value)
     }
 
     render(){ 
         if (this.state.formattedData === "Nothing Yet"){
             return(
-                // <table>
-                //     <thead style = {{backgroundColor: "#222222", color: "#ffffff"}}>
-                //         <tr className = "text-center">
-                //             <th scope = "col">E</th>
-                //             <th scope = "col">A</th>
-                //             <th scope = "col">D</th>
-                //             <th scope = "col">G</th>
-                //             <th scope = "col">B</th>
-                //             <th scope = "col">e</th>
-                //         </tr>
-                //     </thead>
-                //     <tbody>
-                //         <tr>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //         </tr>
-                //         <tr>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //         </tr>
-                //         <tr>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //         </tr>
-                //         <tr>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //         </tr>
-                //         <tr>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //         </tr>
-                //         <tr>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_empty.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //             <td><img alt = "guitar fret" src = {require("../assets/images/Guitar_note.png")} /></td>
-                //         </tr>
-                //     </tbody>
-                // </table>
                 <tr>
                     <td>Nothing</td>
                     <td>to</td>

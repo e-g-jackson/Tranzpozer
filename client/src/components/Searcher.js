@@ -61,6 +61,7 @@ class Searcher extends React.Component {
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <div className="dropdown-item" onClick={() => {this.modeizer("Major Pentatonic")}}>Major Pentatonic</div>
                             <div className="dropdown-item" onClick={() => {this.modeizer("Minor Pentatonic")}}>Minor Pentatonic</div>
+                            <div className="dropdown-item" onClick={() => {this.modeizer("MajorMinor")}}>Major/Minor Pentatonic</div>
                             <div className="dropdown-item" onClick={() => {this.modeizer("Ionian")}}>Ionian</div>
                             <div className="dropdown-item" onClick={() => {this.modeizer("Dorian")}}>Dorian</div>
                             <div className="dropdown-item" onClick={() => {this.modeizer("Phrygian")}}>Phrygian</div>
