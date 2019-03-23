@@ -29,11 +29,11 @@ class Guitar extends Component {
             const centeredText = {
                 position: "relative",
                 display: "flex",
-                top: "-50px",
+                top: "-60px",
                 left: "70px",
                 color: "#ffffff", 
                 fontSize: "15px",
-                // backgroundColor: "#333333",
+                height: "0px",
                 transform: "translate(-50%, -50%)",
                 zIndex:"5"
             };
