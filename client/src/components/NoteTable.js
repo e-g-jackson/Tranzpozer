@@ -1,5 +1,6 @@
 import React from "react";
 import compromizer from "../assets/compromizer";
+import Staffizer from "../assets/Staffizer";
 import Guitar from "../components/Guitar";
 
 
@@ -76,21 +77,28 @@ class NoteTable extends React.Component{
             </div>
             )
         } else {
+            console.log('this.state.notesInKey:')
+            console.log(this.state.notesInKey)
             return(
                 <div className = "container">
                     <div className = "row mt-4">
                         <div className = "col-2"></div>
                         <div className = "col-4">
-                            <table id = "body" className = "p-2 table table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope = "col">Notes:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.formatter(this.state.notesInKey)}
-                                </tbody>
-                            </table>
+                            <div id = "staff">
+                                <Staffizer />
+                            </div>
+                            <div>
+                                <table id = "body" className = "p-2 table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope = "col">Notes:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.formatter(this.state.notesInKey)}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div className = "col-4">
                             <h3>Guitar Renderizer:</h3>

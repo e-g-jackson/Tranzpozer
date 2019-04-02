@@ -1,6 +1,6 @@
-const majorPentatonic = [0, 2, 4, 7, 9]
-const minorPentatonic = [0, 3, 5, 7, 10]
-const majorMinor = [0, 2, 3, 4, 5, 7, 9, 10]
+const majorPentatonic = [0, 2, 4, 7, 9];
+const minorPentatonic = [0, 3, 5, 7, 10];
+const majorMinor = [0, 2, 3, 4, 5, 7, 9, 10];
 const ionian = [0, 2, 4, 5, 7, 9 , 11];
 const dorian = [0, 2, 3, 5, 7, 9, 10];
 const phrygian = [0, 1, 3, 5, 7, 8, 10];
