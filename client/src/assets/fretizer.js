@@ -24,16 +24,35 @@ export default function fretizer (noteData){
 
         //s = number of strings
         for(var s = 0; s < strings.length; s++){
-            if(compare(stringsArray[s][f], noteData)){
+            if(f === 0){
+                if(compare(stringsArray[s][f], noteData)){
                 row.push({
                     note:stringsArray[s][f],
-                    inKey: true
+                    inKey: true,
+                    nutNote: true,
                 });
             } else {
                 row.push({
                     note:stringsArray[s][f], 
-                    inKey: false
+                    inKey: false,
+                    nutNote: true,
                 })
+            }
+
+            } else {
+                if(compare(stringsArray[s][f], noteData)){
+                    row.push({
+                        note:stringsArray[s][f],
+                        inKey: true,
+                        nutNote:false,
+                    });
+                } else {
+                    row.push({
+                        note:stringsArray[s][f], 
+                        inKey: false,
+                        nutNote: false,
+                    })
+                }
             }
         }
         template.push(row)

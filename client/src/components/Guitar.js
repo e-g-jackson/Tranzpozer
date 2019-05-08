@@ -28,11 +28,19 @@ class Guitar extends Component {
 
     renderer(){
         //pass key, scale, tuning...
-        // console.log('fretizer:')
-        // console.log(fretizer(this.props.noteData));
+        console.log('fretizer:')
+        console.log(fretizer(this.props.noteData));
 
         let newNoteData = fretizer(this.props.noteData);
         let tableData = newNoteData.map((x, index) => {
+            function stylePicker (nutNote) {
+                if(!nutNote){
+                    return (centeredText)
+                }
+                else{
+                    return(centeredTextNut)
+                }
+            }
             const centeredText = {
                 position: "relative",
                 display: "flex",
@@ -44,14 +52,26 @@ class Guitar extends Component {
                 transform: "translate(-50%, -50%)",
                 zIndex:"5"
             };
+            const centeredTextNut = {
+                position: "relative",
+                display: "flex",
+                top: "-25px",
+                left: "70px",
+                color: "transparent", 
+                fontSize: "12px",
+                height: "0px",
+                transform: "translate(-50%, -50%)",
+                zIndex:"5"
+            };
             return(
                 <tr key = {index}>
                     <td>
                         <div className = "">
-                            {this.picChooser(x[0].inKey)}
+                            {this.picChooser(x[0].inKey, x[0].nutNote)}
                             <div 
-                                style = {centeredText} 
-                                note = {x[0].note} 
+                                style = {stylePicker(x[0].nutNote)} 
+                                note = {x[0].note}
+                                title = {x[0].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
                                 >{x[0].note}
                             </div>
@@ -59,10 +79,11 @@ class Guitar extends Component {
                     </td>
                     <td>
                         <div className = "">
-                            {this.picChooser(x[1].inKey)}
+                            {this.picChooser(x[1].inKey, x[1].nutNote)}
                             <div 
-                                style = {centeredText} 
-                                note = {x[1].note} 
+                                style = {stylePicker(x[1].nutNote)} 
+                                note = {x[1].note}
+                                title = {x[1].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
                                 >{x[1].note}
                             </div>
@@ -70,10 +91,11 @@ class Guitar extends Component {
                     </td>
                     <td>
                         <div className = "">
-                            {this.picChooser(x[2].inKey)}
+                            {this.picChooser(x[2].inKey, x[2].nutNote)}
                             <div 
-                                style = {centeredText} 
-                                note = {x[2].note} 
+                                style = {stylePicker(x[2].nutNote)} 
+                                note = {x[2].note}
+                                title = {x[2].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
                                 >{x[2].note}
                             </div>
@@ -81,10 +103,11 @@ class Guitar extends Component {
                     </td>
                     <td>
                         <div className = "">
-                            {this.picChooser(x[3].inKey)}
+                            {this.picChooser(x[3].inKey, x[3].nutNote)}
                             <div 
-                                style = {centeredText} 
-                                note = {x[3].note} 
+                                style = {stylePicker(x[3].nutNote)} 
+                                note = {x[3].note}
+                                title = {x[3].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
                                 >{x[3].note}
                             </div>
@@ -92,10 +115,11 @@ class Guitar extends Component {
                     </td>
                     <td>
                         <div className = "">
-                            {this.picChooser(x[4].inKey)}
+                            {this.picChooser(x[4].inKey, x[4].nutNote)}
                             <div 
-                                style = {centeredText} 
-                                note = {x[4].note} 
+                                style = {stylePicker(x[4].nutNote)} 
+                                note = {x[4].note}
+                                title = {x[4].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
                                 >{x[4].note}
                             </div>
@@ -103,10 +127,11 @@ class Guitar extends Component {
                     </td>
                     <td>
                         <div className = "">
-                            {this.picChooser(x[5].inKey)}
+                            {this.picChooser(x[5].inKey, x[5].nutNote)}
                             <div 
-                                style = {centeredText} 
-                                note = {x[5].note} 
+                                style = {stylePicker(x[5].nutNote)} 
+                                note = {x[5].note}
+                                title = {x[5].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
                                 >{x[5].note}
                             </div>
@@ -133,10 +158,14 @@ class Guitar extends Component {
         }
     }
 
-    picChooser(inKey){
-        if(inKey === true){
+    picChooser(inKey, nutNote){
+        if(inKey && nutNote){
+            return(<img alt = "guitar fret" inkey = "true" src = {require("../assets/images/Nut_note.png")} />)
+        } else if (!inKey && nutNote){
+            return(<img alt = "guitar fret" inkey = "true" src = {require("../assets/images/Nut_empty.png")} />)
+        } else if(inKey && !nutNote){
             return(<img alt = "guitar fret" inkey = "true" src = {require("../assets/images/Guitar_note.png")} />)
-        } else {
+        } else if (!inKey && !nutNote) {
             return(<img alt = "guitar fret" inkey = "false" src = {require("../assets/images/Guitar_empty.png")} />)
         }
     }
@@ -147,6 +176,9 @@ class Guitar extends Component {
             value = true
         } else if (this.state.formattedData.length === newData.length){
             for (var i = 0; i < this.state.formattedData.length; i++){
+                console.log('/////////////////////////////////')
+                console.log(this.state.formattedData[i].props)
+                console.log('/////////////////////////////////')
                 var oldStuff = this.state.formattedData[i].props.children[0].props.children.props.children[0].props.inkey;
                 var newStuff = newData[i].props.children[0].props.children.props.children[0].props.inkey;        
                 // console.log(this.state.formattedData[i].props.children[0].props.children.props.children[0].props.inkey)
