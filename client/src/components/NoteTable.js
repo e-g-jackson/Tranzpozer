@@ -77,13 +77,13 @@ class NoteTable extends React.Component{
             </div>
             )
         } else {
-            console.log('this.state.notesInKey:')
-            console.log(this.state.notesInKey)
+            // console.log('this.state.notesInKey:')
+            // console.log(this.state.notesInKey)
             return(
                 <div className = "container">
                     <div className = "row mt-4">
                         <div className = "col-2"></div>
-                        <div className = "col-4">
+                        <div className = "col-2">
                             <div id = "staff">
                                 <Staffizer />
                             </div>
@@ -94,13 +94,13 @@ class NoteTable extends React.Component{
                                             <th scope = "col">Notes:</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className = "text-center">
                                         {this.formatter(this.state.notesInKey)}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div className = "col-4">
+                        <div className = "col-6">
                             <h3>Guitar Renderizer:</h3>
                             <Guitar 
                                 noteData = {this.state.notesInKey}

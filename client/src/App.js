@@ -9,21 +9,31 @@ class App extends Component {
       <Router>
         <Navbar />
         <Route exact path = "/" render = {() =>{
-          // return(
-          //   <div className = "container text-center">
-          //     <h1>The Tranzpozer App!</h1>
-          //     <br />
-          //     <p>
-          //       The app to make all the guitar headaches go away...
-          //     </p>
-          //   </div>
-          // )
           return(
-            <div>
-              <h1 className = "mt-5 ml-5 pl-5"><strong>Guitar:</strong></h1>
-              <Searcher />
+            <div className = "container text-center">
+              <h1>The Tranzpozer App!</h1>
+              
+              <br />
+              <i class="fas fa-guitar fa-10x"></i>
+              <br />
+
+              <p>
+                An app to take away all of the transposing headaches! 
+                This app will accept a key and a scale and show you where to find all of the notes on a guitar fretboard!
+              </p>
+              <a href = "/guitar">
+                <button class = 'btn btn-lg btn-outline-danger'>
+                  Go to guitar rendering page!
+                </button>
+              </a>
             </div>
           )
+          // return(
+          //   <div>
+          //     <h1 className = "mt-5 ml-5 pl-5"><strong>Guitar:</strong></h1>
+          //     <Searcher />
+          //   </div>
+          // )
         }} />
         <Route path = "/guitar" render ={() => {
           return(
