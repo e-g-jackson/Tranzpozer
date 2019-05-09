@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Searcher from "./components/Searcher";
 
@@ -21,11 +21,11 @@ class App extends Component {
                 An app to take away all of the transposing headaches! 
                 This app will accept a key and a scale and show you where to find all of the notes on a guitar fretboard!
               </p>
-              <a href = "/guitar">
+              <Link to = "/guitar">
                 <button class = 'btn btn-lg btn-outline-danger'>
                   Go to guitar rendering page!
                 </button>
-              </a>
+              </Link>
             </div>
           )
           // return(
