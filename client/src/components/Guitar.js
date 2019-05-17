@@ -98,18 +98,19 @@ class Guitar extends Component {
                 top: "-60px",
                 left: "70px",
                 color: "#ffffff", 
-                fontSize: "12px",
+                fontSize: "10px",
                 height: "0px",
                 transform: "translate(-50%, -50%)",
                 zIndex:"5"
             };
+            //centered text empty needed due to overhanging letters
             const centeredTextNut = {
                 position: "relative",
                 display: "flex",
                 top: "-25px",
                 left: "70px",
                 color: "#ffffff", 
-                fontSize: "12px",
+                fontSize: "10px",
                 height: "0px",
                 transform: "translate(-50%, -50%)",
                 zIndex:"5"
@@ -120,7 +121,7 @@ class Guitar extends Component {
                 top: "-25px",
                 left: "70px",
                 color: "#000000", 
-                fontSize: "12px",
+                fontSize: "10px",
                 height: "0px",
                 transform: "translate(-50%, -50%)",
                 zIndex:"5"
@@ -135,7 +136,7 @@ class Guitar extends Component {
                                 note = {x[0].note}
                                 title = {x[0].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
-                                >{x[0].note}
+                                ><strong>{x[0].note}</strong>
                             </div>
                         </div>
                     </td>
@@ -147,7 +148,7 @@ class Guitar extends Component {
                                 note = {x[1].note}
                                 title = {x[1].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
-                                >{x[1].note}
+                                ><strong>{x[1].note}</strong>
                             </div>
                         </div>
                     </td>
@@ -159,7 +160,7 @@ class Guitar extends Component {
                                 note = {x[2].note}
                                 title = {x[2].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
-                                >{x[2].note}
+                                ><strong>{x[2].note}</strong>
                             </div>
                         </div>
                     </td>
@@ -171,7 +172,7 @@ class Guitar extends Component {
                                 note = {x[3].note}
                                 title = {x[3].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
-                                >{x[3].note}
+                                ><strong>{x[3].note}</strong>
                             </div>
                         </div>
                     </td>
@@ -183,7 +184,7 @@ class Guitar extends Component {
                                 note = {x[4].note}
                                 title = {x[4].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
-                                >{x[4].note}
+                                ><strong>{x[4].note}</strong>
                             </div>
                         </div>
                     </td>
@@ -195,7 +196,7 @@ class Guitar extends Component {
                                 note = {x[5].note}
                                 title = {x[5].note} 
                                 onMouseOver = {(event) => {this.sounds(event)}}
-                                >{x[5].note}
+                                ><strong>{x[5].note}</strong>
                             </div>
                         </div>
                     </td>

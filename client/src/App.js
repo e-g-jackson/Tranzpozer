@@ -18,8 +18,12 @@ class App extends Component {
               <br />
 
               <p>
-                An app to take away all of the transposing headaches! 
-                This app will accept a key and a scale and show you where to find all of the notes on a guitar fretboard!
+                An app to simplify learning a new guitar tuning! If you know the key, scale,
+                <br /> 
+                and tuning that you'd like to learn, this app will map it all out on a fretboard for you!
+              </p>
+              <p>
+                Just click below to begin!
               </p>
               
               <Link to = "/guitar">
