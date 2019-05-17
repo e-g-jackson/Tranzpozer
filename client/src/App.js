@@ -21,6 +21,7 @@ class App extends Component {
                 An app to take away all of the transposing headaches! 
                 This app will accept a key and a scale and show you where to find all of the notes on a guitar fretboard!
               </p>
+              
               <Link to = "/guitar">
                 <button class = 'btn btn-lg btn-outline-danger'>
                   Go to guitar rendering page!

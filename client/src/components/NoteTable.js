@@ -102,6 +102,7 @@ class NoteTable extends React.Component{
                         </div>
                         <div className = "col-6">
                             <h3>Guitar Renderizer:</h3>
+                            <p>If you would like to change a string's tuning, then select a new value in the dropdown menu above the string.</p>
                             <Guitar 
                                 noteData = {this.state.notesInKey}
                             />

@@ -49,6 +49,7 @@ export default function fretizer (noteData, E, A, D, G, B, e){
     // console.log(strings);
     // console.log('stringsArray:');
     // console.log(stringsArray);
+    
     //f = number of frets
     for(var f = 0; f < 12; f++){
         var row = [];

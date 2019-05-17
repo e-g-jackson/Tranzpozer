@@ -11,34 +11,64 @@ class Guitar extends Component {
         G_String: "G",
         B_String: "B",
         e_String: "E",
-        tuning: [this.E_String, this.A_String, this.D_String, this.G_String, this.B_String, this.e_String]
+        tuning: [
+            this.E_String || "E", 
+            this.A_String || "A", 
+            this.D_String || "D", 
+            this.G_String || "G", 
+            this.B_String || "B", 
+            this.e_String || "E"
+        ]
     }
-
     componentDidMount(){
         console.log('Guitar.js did Mount');
+        // console.log('TUNING:');
+        // console.log(this.state.tuning);
+        // console.log(this.state);
         this.renderer();
     }
 
     componentDidUpdate(){
-        console.log('Guitar.js did Update')
+        console.log('Guitar.js did Update');
+        console.log('STRING STATE VS TUNING:');
+        console.log(this.state.E_String + ' vs ' + this.state.tuning[0]);
+        console.log(this.state.A_String + ' vs ' + this.state.tuning[1]);
+        console.log(this.state.D_String + ' vs ' + this.state.tuning[2]);
+        console.log(this.state.G_String + ' vs ' + this.state.tuning[3]);
+        console.log(this.state.B_String + ' vs ' + this.state.tuning[4]);
+        console.log(this.state.e_String + ' vs ' + this.state.tuning[5]);
         // console.log(this.state.tuning)
-
+        this.renderer();
         //if statements prevent repeat fires
-        if(this.props.noteData !== this.state.noteData){
-            // console.log('this.props.noteData !== this.state.noteData')
-            this.renderer();
-        }
-        if(this.state.E_String !== this.state.tuning[0] || this.state.A_String !== this.state.tuning[1]
-            || this.state.D_String !== this.state.tuning[2] || this.state.G_String !== this.state.tuning[3]
-            || this.state.B_String !== this.state.tuning[4] || this.state.e_String !== this.state.tuning[5]){
-            // console.log('this.SOME_String !== this.state.tuning[SOME#]')
-            this.renderer();
-        }
+        // if(this.props.noteData !== this.state.noteData){
+        //     console.log('this.props.noteData !== this.state.noteData')
+        //     this.renderer();
+        // } 
+        // else if (this.state.E_String !== this.state.tuning[0]){
+        //     this.renderer();
+        // } else if (this.state.A_String !== this.state.tuning[1]){
+        //     this.renderer();
+        // } else if (this.state.D_String !== this.state.tuning[2]){
+        //     this.renderer();
+        // } else if (this.state.G_String !== this.state.tuning[3]){
+        //     this.renderer();
+        // } else if (this.state.B_String !== this.state.tuning[4]){
+        //     this.renderer();
+        // } else if (this.state.e_String !== this.state.tuning[5]){
+        //     this.renderer();
+        // }
+
+        // if(this.state.E_String !== this.state.tuning[0] || this.state.A_String !== this.state.tuning[1]
+        //     || this.state.D_String !== this.state.tuning[2] || this.state.G_String !== this.state.tuning[3]
+        //     || this.state.B_String !== this.state.tuning[4] || this.state.e_String !== this.state.tuning[5]){
+        //     console.log('this.SOME_String !== this.state.tuning[SOME#]')
+        //     this.renderer();
+        // }
     }
 
     sounds(e){
         var playNote = e.target.getAttribute("note");
-        // console.log(playNote);
+        console.log(playNote);
         // var audio = new Audio('audio_file.mp3');
         // audio.play();
     }
@@ -47,7 +77,7 @@ class Guitar extends Component {
         //pass key, scale, tuning...
         // console.log('fretizer:')
         // console.log(fretizer(this.props.noteData, this.state.E_String, this.state.A_String, this.state.D_String, this.state.G_String, this.state.B_String, this.state.e_String));
-
+        console.log('renderer running...')
         let newNoteData = fretizer(this.props.noteData, this.state.E_String, this.state.A_String, this.state.D_String, this.state.G_String, this.state.B_String, this.state.e_String);
         let tableData = newNoteData.map((x, index) => {
             function stylePicker (inKey, nutNote) {
@@ -203,19 +233,28 @@ class Guitar extends Component {
     }
 
     sameFinder(newData){
+        console.log('Samefinder running!')
+        // console.log(newData)
         let value = false;
         if(this.state.formattedData.length !== newData.length){
             value = true
         } else if (this.state.formattedData.length === newData.length){
+            console.log('ELSE IF statement')
+            //only checking one string?
             for (var i = 0; i < this.state.formattedData.length; i++){
-                var oldStuff = this.state.formattedData[i].props.children[0].props.children.props.children[0].props.inkey;
-                var newStuff = newData[i].props.children[0].props.children.props.children[0].props.inkey; 
-                if (oldStuff !== newStuff){
-                    value = true;
-                    break;
+                var oldStuff = this.state.formattedData[i]
+                var newStuff = newData[i]
+                for (var j = 0; j < 6; j++){
+                    var oldEachString = oldStuff.props.children[j].props.children.props.children[0].props.inkey;
+                    var newEachString = newStuff.props.children[j].props.children.props.children[0].props.inkey;
+                    if(oldEachString !== newEachString){
+                        value = true;
+                        break;
+                    }
                 }
             }
         }
+        console.log('Value = ' + value)
         return (value)
     }
 
@@ -248,7 +287,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"A"
+                                                    E_String:"A",
+                                                    tuning: [
+                                                        "A", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>A</div>
                                     <div 
@@ -256,7 +303,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"Bb"
+                                                    E_String:"Bb",
+                                                    tuning: [
+                                                        "Bb", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Bb</div>
                                     <div 
@@ -264,7 +319,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"B"
+                                                    E_String:"B",
+                                                    tuning: [
+                                                        "B", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>B</div>
                                     <div 
@@ -272,7 +335,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"C"
+                                                    E_String:"C",
+                                                    tuning: [
+                                                        "C", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>C</div>
                                     <div 
@@ -280,7 +351,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"Db"
+                                                    E_String:"Db",
+                                                    tuning: [
+                                                        "Db", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Db</div>
                                     <div 
@@ -288,7 +367,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"D"
+                                                    E_String:"D",
+                                                    tuning: [
+                                                        "D", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>D</div>
                                     <div 
@@ -296,7 +383,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"Eb"
+                                                    E_String:"Eb",
+                                                    tuning: [
+                                                        "Eb", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Eb</div>
                                     <div 
@@ -304,7 +399,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"E"
+                                                    E_String:"E",
+                                                    tuning: [
+                                                        "E", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>E</div>
                                     <div 
@@ -312,7 +415,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"F"
+                                                    E_String:"F",
+                                                    tuning: [
+                                                        "F", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>F</div>
                                     <div 
@@ -320,7 +431,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"Gb"
+                                                    E_String:"Gb",
+                                                    tuning: [
+                                                        "Gb", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Gb</div>
                                     <div 
@@ -328,7 +447,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"G"
+                                                    E_String:"G",
+                                                    tuning: [
+                                                        "G", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>G</div>
                                     <div 
@@ -336,7 +463,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    E_String:"Ab"
+                                                    E_String:"Ab",
+                                                    tuning: [
+                                                        "Ab", 
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Ab</div>
                                 </div>
@@ -350,7 +485,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"A"
+                                                    A_String:"A",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "A",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>A</div>
                                     <div 
@@ -358,7 +501,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"Bb"
+                                                    A_String:"Bb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "Bb",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Bb</div>
                                     <div 
@@ -366,7 +517,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"B"
+                                                    A_String:"B",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "B",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>B</div>
                                     <div 
@@ -374,7 +533,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"C"
+                                                    A_String:"C",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "C",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>C</div>
                                     <div 
@@ -382,7 +549,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"Db"
+                                                    A_String:"Db",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "Db",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Db</div>
                                     <div 
@@ -390,7 +565,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"D"
+                                                    A_String:"D",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "D",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>D</div>
                                     <div 
@@ -398,7 +581,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"Eb"
+                                                    A_String:"Eb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "Eb",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Eb</div>
                                     <div 
@@ -406,7 +597,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"E"
+                                                    A_String:"E",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "E",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>E</div>
                                     <div 
@@ -414,7 +613,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"F"
+                                                    A_String:"F",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "F",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>F</div>
                                     <div 
@@ -422,7 +629,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"Gb"
+                                                    A_String:"Gb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "Gb",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Gb</div>
                                     <div 
@@ -430,7 +645,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"G"
+                                                    A_String:"G",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "G",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>G</div>
                                     <div 
@@ -438,7 +661,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    A_String:"Ab"
+                                                    A_String:"Ab",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        "Ab",
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Ab</div>
                                 </div>
@@ -453,7 +684,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"A"
+                                                    D_String:"A",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "A",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>A</div>
                                     <div 
@@ -461,7 +700,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"Bb"
+                                                    D_String:"Bb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "Bb",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Bb</div>
                                     <div 
@@ -469,7 +716,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"B"
+                                                    D_String:"B",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "B",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>B</div>
                                     <div 
@@ -477,7 +732,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"C"
+                                                    D_String:"C",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "C",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>C</div>
                                     <div 
@@ -485,7 +748,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"Db"
+                                                    D_String:"Db",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "Db",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Db</div>
                                     <div 
@@ -493,7 +764,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"D"
+                                                    D_String:"D",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "D",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>D</div>
                                     <div 
@@ -501,7 +780,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"Eb"
+                                                    D_String:"Eb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "Eb",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Eb</div>
                                     <div 
@@ -509,7 +796,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"E"
+                                                    D_String:"E",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "E",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>E</div>
                                     <div 
@@ -517,7 +812,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"F"
+                                                    D_String:"F",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "F",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>F</div>
                                     <div 
@@ -525,7 +828,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"Gb"
+                                                    D_String:"Gb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "Gb",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Gb</div>
                                     <div 
@@ -533,7 +844,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"G"
+                                                    D_String:"G",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "G",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>G</div>
                                     <div 
@@ -541,7 +860,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    D_String:"Ab"
+                                                    D_String:"Ab",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        "Ab",
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Ab</div>
                                 </div>
@@ -556,7 +883,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"A"
+                                                    G_String:"A",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "A",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>A</div>
                                     <div 
@@ -564,7 +899,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"Bb"
+                                                    G_String:"Bb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "Bb",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Bb</div>
                                     <div 
@@ -572,7 +915,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"B"
+                                                    G_String:"B",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "B",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>B</div>
                                     <div 
@@ -580,7 +931,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"C"
+                                                    G_String:"C",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "C",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>C</div>
                                     <div 
@@ -588,7 +947,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"Db"
+                                                    G_String:"Db",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "Db",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Db</div>
                                     <div 
@@ -596,7 +963,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"D"
+                                                    G_String:"D",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "D",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>D</div>
                                     <div 
@@ -604,7 +979,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"Eb"
+                                                    G_String:"Eb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "Eb",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Eb</div>
                                     <div 
@@ -612,7 +995,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"E"
+                                                    G_String:"E",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "E",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>E</div>
                                     <div 
@@ -620,7 +1011,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"F"
+                                                    G_String:"F",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "F",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>F</div>
                                     <div 
@@ -628,7 +1027,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"Gb"
+                                                    G_String:"Gb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "Gb",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Gb</div>
                                     <div 
@@ -636,7 +1043,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"G"
+                                                    G_String:"G",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "G",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>G</div>
                                     <div 
@@ -644,7 +1059,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    G_String:"Ab"
+                                                    G_String:"Ab",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        "Ab",
+                                                        this.state.B_String,
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Ab</div>
                                 </div>
@@ -659,7 +1082,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"A"
+                                                    B_String:"A",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "A",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>A</div>
                                     <div 
@@ -667,7 +1098,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"Bb"
+                                                    B_String:"Bb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "Bb",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Bb</div>
                                     <div 
@@ -675,7 +1114,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"B"
+                                                    B_String:"B",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "B",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>B</div>
                                     <div 
@@ -683,7 +1130,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"C"
+                                                    B_String:"C",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "C",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>C</div>
                                     <div 
@@ -691,7 +1146,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"Db"
+                                                    B_String:"Db",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "Db",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Db</div>
                                     <div 
@@ -699,7 +1162,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"D"
+                                                    B_String:"D",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "D",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>D</div>
                                     <div 
@@ -707,7 +1178,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"Eb"
+                                                    B_String:"Eb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "Eb",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Eb</div>
                                     <div 
@@ -715,7 +1194,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"E"
+                                                    B_String:"E",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "E",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>E</div>
                                     <div 
@@ -723,7 +1210,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"F"
+                                                    B_String:"F",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "F",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>F</div>
                                     <div 
@@ -731,7 +1226,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"Gb"
+                                                    B_String:"Gb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "Gb",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Gb</div>
                                     <div 
@@ -739,7 +1242,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"G"
+                                                    B_String:"G",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "G",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>G</div>
                                     <div 
@@ -747,7 +1258,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    B_String:"Ab"
+                                                    B_String:"Ab",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        "Ab",
+                                                        this.state.e_String,
+                                                    ]
                                                 })
                                             }}>Ab</div>
                                 </div>
@@ -762,7 +1281,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"A"
+                                                    e_String:"A",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "A",
+                                                    ]
                                                 })
                                             }}>A</div>
                                     <div 
@@ -770,7 +1297,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"Bb"
+                                                    e_String:"Bb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "Bb",
+                                                    ]
                                                 })
                                             }}>Bb</div>
                                     <div 
@@ -778,7 +1313,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"B"
+                                                    e_String:"B",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "B",
+                                                    ]
                                                 })
                                             }}>B</div>
                                     <div 
@@ -786,7 +1329,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"C"
+                                                    e_String:"C",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "C",
+                                                    ]
                                                 })
                                             }}>C</div>
                                     <div 
@@ -794,7 +1345,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"Db"
+                                                    e_String:"Db",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "Db",
+                                                    ]
                                                 })
                                             }}>Db</div>
                                     <div 
@@ -802,7 +1361,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"D"
+                                                    e_String:"D",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "D",
+                                                    ]
                                                 })
                                             }}>D</div>
                                     <div 
@@ -810,7 +1377,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"Eb"
+                                                    e_String:"Eb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "Eb",
+                                                    ]
                                                 })
                                             }}>Eb</div>
                                     <div 
@@ -818,7 +1393,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"E"
+                                                    e_String:"E",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "E",
+                                                    ]
                                                 })
                                             }}>E</div>
                                     <div 
@@ -826,7 +1409,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"F"
+                                                    e_String:"F",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "F",
+                                                    ]
                                                 })
                                             }}>F</div>
                                     <div 
@@ -834,7 +1425,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"Gb"
+                                                    e_String:"Gb",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "Gb",
+                                                    ]
                                                 })
                                             }}>Gb</div>
                                     <div 
@@ -842,7 +1441,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"G"
+                                                    e_String:"G",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "G",
+                                                    ]
                                                 })
                                             }}>G</div>
                                     <div 
@@ -850,7 +1457,15 @@ class Guitar extends Component {
                                         onClick = {
                                             () => {
                                                 this.setState({
-                                                    e_String:"Ab"
+                                                    e_String:"Ab",
+                                                    tuning: [ 
+                                                        this.state.E_String,
+                                                        this.state.A_String,
+                                                        this.state.D_String,
+                                                        this.state.G_String,
+                                                        this.state.B_String,
+                                                        "Ab",
+                                                    ]
                                                 })
                                             }}>Ab</div>
                                 </div>
