@@ -41,11 +41,11 @@ class NoteTable extends React.Component{
     formatter(data){
         const formattedData = data.map((x, index) => {
             return(
-                <tr key = {index}>
-                    <td>
+                // <tr key = {index}>
+                    <td key = {index} className = 'col'>
                         {x}
                     </td>
-                </tr>
+                // </tr>
             )
         });
         return formattedData;
@@ -62,7 +62,7 @@ class NoteTable extends React.Component{
                         <table id = "body" className = "p-2 table table-dark">
                             <thead>
                                 <tr>
-                                    <th scope = "col">Notes:</th>
+                                    <th scope = "col">Note data:</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,33 +81,44 @@ class NoteTable extends React.Component{
             // console.log(this.state.notesInKey)
             return(
                 <div className = "container">
+                    
                     <div className = "row mt-4">
-                        <div className = "col-2"></div>
-                        <div className = "col-2">
+                        <div className = "col-xs-0 col-sm-0 col-md-3 col-lg-3 col-xl-3"></div>
+                        <div className = "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div id = "staff">
                                 <Staffizer />
                             </div>
                             <div>
-                                <table id = "body" className = "p-2 table table-dark">
+                                <table id = "body" className = "table table-dark">
                                     <thead>
                                         <tr>
-                                            <th scope = "col">Notes:</th>
+                                            <th scope = "col">Notes in key:</th>
                                         </tr>
                                     </thead>
                                     <tbody className = "text-center">
-                                        {this.formatter(this.state.notesInKey)}
+                                        <tr className = "row" style = {{marginRight:"0px", marginLeft:"0px"}}>
+                                            {this.formatter(this.state.notesInKey)}
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div className = "col-6">
+                        <div className = "col-xs-0 col-sm-0 col-md-3 col-lg-3 col-xl-3"></div>
+                    </div>
+
+                    <div className = "row mt-4">
+                        <div className = "col-xs-0 col-sm-0 col-md-3 col-lg-3 col-xl-3"></div>
+                        <div className = "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <h3>Guitar Renderizer:</h3>
-                            <p>If you would like to change a string's tuning, then select a new value in the dropdown menu above the string.</p>
+                            <p>
+                                If you would like to change a string's tuning, 
+                                then select a new value in the dropdown menu above the string.
+                            </p>
                             <Guitar 
                                 noteData = {this.state.notesInKey}
                             />
                         </div>
-                        <div className = "col-2"></div>
+                        <div className = "col-xs-0 col-sm-0 col-md-3 col-lg-3 col-xl-3"></div>
                     </div>
                 </div>
             )

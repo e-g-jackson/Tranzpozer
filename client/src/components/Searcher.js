@@ -33,7 +33,7 @@ class Searcher extends React.Component {
 
     render(){
         return(
-            <div className = "container mt-5">
+            <div className = "container-fluid">
                 <div className = "row" style = {{backgroundColor: "#000000", text: "#ffffff" }}>
                     <div className="dropdown m-3">
                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

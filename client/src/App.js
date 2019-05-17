@@ -39,7 +39,7 @@ class App extends Component {
         <Route path = "/guitar" render ={() => {
           return(
             <div>
-              <h1 className = "mt-5 ml-5 pl-5"><strong>Guitar:</strong></h1>
+              {/* <h1 className = "mt-5 ml-5 pl-5"><strong>Guitar:</strong></h1> */}
               <Searcher />
             </div>
           )
